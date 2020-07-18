@@ -1,12 +1,14 @@
 import express, { Request, Response, RequestHandler } from 'express'
 import api from '../routes/api.routes'
 import logger from 'morgan'
+import path from 'path'
 
 const app = express()
 
 app.use(logger('dev'));
 
-app.use('/', api)
+app.use('/', express.static(path.join(__dirname, '../../public')));
+app.use('/api', api)
 
 // error handler
 app.use((err: any, req: Request, res: Response, next: RequestHandler) => {
