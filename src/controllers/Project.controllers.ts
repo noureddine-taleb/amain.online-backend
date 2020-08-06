@@ -1,13 +1,23 @@
 import { Controller } from "./Controller";
 import { Request, Response } from "express";
+import { MProject } from "../models/Project.model";
 
-export class Project implements Controller {
+export class CProject implements Controller {
 
-    static create(req: Request, res: Response) {
-        throw new Error('not implemented')
+    static async create(req: Request, res: Response) {
+        const { name, desc, fees, createdAt } = req.body
+        const project = new MProject()
+        project.name = name
+        project.desc = desc
+        project.fees = fees
+        project.createdAt = createdAt
+        await project.save()
+        return res.json({}).status(204)
     }
 
-    static getAll(req: Request, res: Response) {
-        throw new Error('not implemented')
+    static async getAll(req: Request, res: Response) {
+        const query = req.params
+        const projects = await MProject.find(query)
+        return res.json({ projects })
     }
 }

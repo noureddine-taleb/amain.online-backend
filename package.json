@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && nodemon dist/index.js",
+    "start": "tsc -w | nodemon dist/index.js",
     "lint": "tslint --fix 'src/**/*.ts'"
   },
   "author": "noureddine taleb",
@@ -17,10 +17,21 @@
     "typescript": "^3.9.6"
   },
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/bluebird": "^3.5.32",
+    "@types/http-errors": "^1.8.0",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/mongoose": "^5.7.34",
     "@types/morgan": "^1.9.1",
+    "@types/multer": "^1.4.3",
+    "bcrypt": "^5.0.0",
+    "bluebird": "^3.7.2",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.9.25",
-    "morgan": "^1.10.0"
+    "express": "^5.0.0-alpha.8",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.26",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2"
   }
 }
