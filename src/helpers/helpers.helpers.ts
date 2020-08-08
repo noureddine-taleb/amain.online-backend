@@ -27,5 +27,7 @@ export const renameUploadedFile = (req: Request, res: Response) => {
   fs.rename(req.file.path, path.join(req.file.destination, req.file.originalname), error => {
     if (error) throw new HttpError(error.message, 500);
     return res.status(204).json({});
-  });
-};
+  })
+}
+
+export const DateFormat = (date: Date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`

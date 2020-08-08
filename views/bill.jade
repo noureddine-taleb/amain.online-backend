@@ -1,0 +1,219 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        title Facture
+        style(type='text/css').
+            table tr {
+                border: 5px;
+            }
+
+            .clearfix:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            a {
+                color: #0087C3;
+                text-decoration: none;
+            }
+
+            body {
+                position: relative;
+                width: 21cm;
+                height: 29.7cm;
+                margin: 0 auto;
+                color: #555555;
+                background: #FFFFFF;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-family: SourceSansPro;
+            }
+
+            header {
+                padding: 10px;
+                margin-bottom: 20px;
+                border-bottom: 1px solid #AAAAAA;
+                width: 85%;
+            }
+
+            #logo {
+                float: left;
+                margin-top: 8px;
+            }
+
+            #logo img {
+                height: 70px;
+            }
+
+            #company {
+                float: right;
+                text-align: right;
+            }
+
+
+            #details {
+                margin-bottom: 50px;
+            }
+
+            #client {
+                padding-left: 6px;
+                border-left: 6px solid #0087C3;
+                float: left;
+            }
+
+            #client .to {
+                color: #777777;
+            }
+
+            h2.name {
+                font-size: 1.4em;
+                font-weight: normal;
+                margin: 0;
+            }
+
+            #invoice {
+                float: right;
+                text-align: right;
+            }
+
+            #invoice h1 {
+                color: #0087C3;
+                font-size: 2.4em;
+                line-height: 1em;
+                font-weight: normal;
+                margin: 0 0 10px 0;
+            }
+
+            #invoice .date {
+                font-size: 1.1em;
+                color: #777777;
+            }
+
+            #thanks {
+                font-size: 2em;
+                margin-bottom: 50px;
+            }
+
+            #notices {
+                padding-left: 6px;
+                border-left: 6px solid #0087C3;
+            }
+
+            #notices .notice {
+                font-size: 1.2em;
+            }
+
+            footer {
+                color: #777777;
+                width: 100%;
+                height: 30px;
+                position: absolute;
+                bottom: 0;
+                border-top: 1px solid #AAAAAA;
+                padding: 8px 0;
+                text-align: center;
+            }
+
+            #companyInfo{
+                float: right;
+                width: 50%;
+            }
+            table{
+                width: 100%;
+                border: none;
+            }
+            table, th, td {
+                border: 0.5px solid black;
+                border-collapse: collapse;
+                text-align: center;
+            }
+            td {
+                padding: 15px;
+                text-align: left;
+                text-align: center;
+            }
+            th{
+                padding: 5px;
+                text-align: left;
+                text-align: center;
+            }
+    body(style="height: 100%; width: 100%; padding: 10px 0px 60px 10px")
+        header(class="clearfix", style="")
+            #logo
+                img(src="/assets/bill.svg")
+            #companyInfo(style="margin-top: -15px;")
+                h5 AMAIN CONSORTIUM
+                div(style="margin-top: -20px;font-family: Sans-serifs; font-size:11px; ")
+                    div(style="float: left;")
+                        |Douar Amain
+                        |Commune Assaki 
+                        br
+                        |Circle Taliouine 
+                        br
+                        |Taroudant, Maroc
+                    div(style="float: right; margin-right: 0px;")
+                        |(+212) 6 00 00 00 00 
+                        br
+                        |contact@amain.ma
+                        br
+                        |https://amain.ma/
+                        br
+        
+        main(style="width: 88%; margin-top: 50px;")
+            fieldset(style="padding: 25px; line-height: 2.0em; font-size: 15px;")
+                legend(style="font-size: 25px;")
+                    b FACTURE
+                div(style="")
+                    div(style="float: left; margin-right: 40px;")
+                        span
+                            b DATE
+                            |: #{bill.createdAt} 
+                            br
+                        span(style="margin-bottom: 5px;")
+                            b DEADLINE
+                            | : #{bill.deadline} 
+                            br
+                    div(style="text-align: right;")
+                        div(style="text-align: left; margin-left: 275px;")
+                            span
+                                b FACTURÉ À 
+                                | : #{bill.userID.name}
+                                br
+                            span(style="margin-bottom: 5px;")
+                                b NUMERO
+                                | : #{bill._id}
+                                br
+            br
+            table
+                tr
+                    th LABLE
+                    th VALUE
+                //- tr
+                //-     th COUNTER N
+                //-     th #{bill.counter}
+                tr
+                    th ISSUE DATE
+                    th #{bill.createdAt}
+                tr
+                    th QUANTITY
+                    th #{bill.quantity}
+                tr
+                    th PRICE PER UNIT
+                    th #{bill.projectID.fees} dh
+                tr
+                    th CONSUMPTION
+                    th #{bill.projectID.fees * bill.quantity} dh
+                tr
+                    th FEES
+                    th #{bill.cfees} dh
+                tr
+                    th LATENCY PENALTY
+                    th #{bill.penalty} dh
+                tr
+                    th TOTAL
+                    th 
+                        b #{bill.total} dh
+
+        footer(style="width: 85%;") Benefeciary Bank : CIH BANK *** N° compte : 000 000 0000000000000000 00

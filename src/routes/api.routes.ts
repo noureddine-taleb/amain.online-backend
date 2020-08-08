@@ -10,7 +10,11 @@ import { CTreasury } from '../controllers/Treasury.controllers'
 import { CReport } from '../controllers/Report.controllers'
 
 const router = Router()
+router.get('/', function (req, res) {
 
+    res.render('bill')
+
+});
 // -------------------------------------------project CRUD-------------------------------------------
 router.get("/projects",  userAuth, CProject.getAll)
 router.post("/projects",  adminAuth, CProject.create)
@@ -30,6 +34,7 @@ router.post("/payments",  adminAuth, CPayment.create)
 
 // -------------------------------------------bill CRUD-------------------------------------------
 router.get("/bills",  adminAuth, CBill.getAll)
+router.get("/bills/:_id", CBill.getOne)
 router.post("/bills",  adminAuth, CBill.create)
 
 // -------------------------------------------Treasury CRUD-------------------------------------------
