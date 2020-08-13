@@ -24,9 +24,9 @@ export class CReport implements Controller {
         console.log({reports})
         // add other data from treasury
         for(const r of reports){
-            r.earn = r.earn || 0
-            r.lost = r.lost || 0
-
+            r.earn |= 0
+            r.lost |= 0
+            console.log({projectID: r._id })
             r.earn += (await MTreasury.aggregate()
             .match({ amount : { $gte: 0 } , projectID: r._id })
             .group({ _id: null, earn: { $sum: '$amount' } }))[0]?.earn || 0
