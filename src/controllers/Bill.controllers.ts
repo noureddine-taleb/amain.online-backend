@@ -7,11 +7,12 @@ import { create } from 'html-pdf';
 export class CBill implements Controller {
 
     static async create(req: Request, res: Response) {
-        const { userID, projectID, quantity, createdAt } = req.body
+        const { userID, projectID, quantity, createdByID, createdAt } = req.body
         const bill = new MBill()
         bill.userID = userID
         bill.projectID = projectID
         bill.quantity = quantity
+        bill.createdByID = createdByID
         bill.createdAt = createdAt
         await bill.save()
         return res.json({}).status(204)

@@ -164,56 +164,47 @@ html
         main(style="width: 88%; margin-top: 50px;")
             fieldset(style="padding: 25px; line-height: 2.0em; font-size: 15px;")
                 legend(style="font-size: 25px;")
-                    b FACTURE
+                    b فاتورة
                 div(style="")
                     div(style="float: left; margin-right: 40px;")
                         span
-                            b DATE
-                            |: #{bill.createdAt} 
+                            b تاريخ الاصدار :
+                            | #{bill.createdAt} 
                             br
                         span(style="margin-bottom: 5px;")
-                            b DEADLINE
-                            | : #{bill.deadline} 
+                            b حد اقصى :
+                            | #{bill.deadline} 
                             br
                     div(style="text-align: right;")
                         div(style="text-align: left; margin-left: 275px;")
                             span
-                                b FACTURÉ À 
-                                | : #{bill.userID.name}
+                                b  للسيد :
+                                | #{bill.userID.name}
                                 br
                             span(style="margin-bottom: 5px;")
-                                b NUMERO
-                                | : #{bill._id}
+                                b code : 
+                                | #{bill._id}
                                 br
             br
             table
                 tr
-                    th LABLE
-                    th VALUE
-                //- tr
-                //-     th COUNTER N
-                //-     th #{bill.counter}
-                tr
-                    th ISSUE DATE
-                    th #{bill.createdAt}
-                tr
-                    th QUANTITY
                     th #{bill.quantity}
+                    th كمية
                 tr
-                    th PRICE PER UNIT
                     th #{bill.projectID.fees} dh
+                    th السعر لكل وحدة
                 tr
-                    th CONSUMPTION
                     th #{bill.projectID.fees * bill.quantity} dh
+                    th استهلاك
                 tr
-                    th FEES
                     th #{bill.cfees} dh
+                    th الرسوم
                 tr
-                    th LATENCY PENALTY
                     th #{bill.penalty} dh
+                    th عقوبة التأخير
                 tr
-                    th TOTAL
                     th 
                         b #{bill.total} dh
+                    th مجموع
 
         footer(style="width: 85%;") Benefeciary Bank : CIH BANK *** N° compte : 000 000 0000000000000000 00

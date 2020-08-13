@@ -22,6 +22,11 @@ const TreasurySchema : Schema = new Schema({
         ref: 'Project',
     },
 
+    createdByID: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+    },
+    
     createdAt: {
         type: Date,
         default: Date()

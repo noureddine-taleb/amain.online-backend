@@ -6,6 +6,8 @@ import path from 'path'
 const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
+morgan.token('body', (req, res) => JSON.stringify((req as any).body))
+app.use(morgan('(:body) \n'))
 app.set('views', path.join(__dirname, '../../views'));
 app.set("view engine","jade")
 app.use('/', express.static(path.join(__dirname, '../../public')))

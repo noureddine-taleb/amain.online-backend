@@ -7,9 +7,10 @@ import { IProject } from "../models/interfaces/IProject";
 export class CPayment implements Controller {
 
     static async create(req: Request, res: Response) {
-        const { billID, createdAt } = req.body
+        const { billID, createdByID, createdAt } = req.body
         const payment = new MPayment()
         payment.billID = billID
+        payment.createdByID = createdByID
         payment.createdAt = createdAt
         const bill = await MBill.findOne({ _id: billID }).populate('projectID')
         payment.amount = ((bill?.projectID as IProject).fees || 0) * (bill?.quantity || 0)
