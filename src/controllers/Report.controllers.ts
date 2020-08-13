@@ -14,14 +14,14 @@ export class CReport implements Controller {
         .aggregate()
         .lookup({ from: 'bills', localField: 'billID', foreignField: '_id', as: 'billID'})
         .group({ _id: '$billID.projectID', earn: { $sum: '$amount' } })
-        
+        console.log({reports})
         // serialize data
         for(const r of reports)
             r._id = r._id?.[0]
-        
+        console.log({reports})
         // populate project id field
         MProject.populate(reports, { path: '_id' })
-        
+        console.log({reports})
         // add other data from treasury
         for(const r of reports){
             r.earn = r.earn || 0
@@ -38,7 +38,7 @@ export class CReport implements Controller {
             r.project = r._id.name
             delete r._id
         }
-
+        console.log({reports})
         // 'other' transactions
         reports.push({
             project: '<other>',
@@ -51,14 +51,14 @@ export class CReport implements Controller {
             .match({ amount : { $lt: 0 } , name: '<other>' })
             .group({ _id: null, lost: { $sum: '$amount' } }))[0]?.lost || 0
         })
-
+        console.log({reports})
         // calculate balance
         let total = 0;
         for(const r of reports){
             r.balance = r.earn + r.lost
             total += r.balance
         }
-
+        console.log({reports})
         return res.json({ reports, total })
     }
 
