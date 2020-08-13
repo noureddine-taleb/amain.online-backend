@@ -1,11 +1,11 @@
 import express, { Request, Response, RequestHandler } from 'express'
 import api from '../routes/api.routes'
-import logger from 'morgan'
+import morgan from 'morgan'
 import path from 'path'
 
 const app = express()
 app.use(express.json())
-app.use(logger('dev'))
+app.use(morgan('dev'))
 app.set('views', path.join(__dirname, '../../views'));
 app.set("view engine","jade")
 app.use('/', express.static(path.join(__dirname, '../../public')))
