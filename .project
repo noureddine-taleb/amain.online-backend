@@ -1,10 +1,3 @@
--- db conf
--- err handling
--- middlware
--- define models methods
--- check middlware usage
--- store payment amount
--- check query strings
--- api
--- testing
--- debugging
+critical: report bug we should include projects that arent mentioned in payment collection
+sec: check ownership of required data
+sec: user wont be allowed to access system if is not verified by admin
