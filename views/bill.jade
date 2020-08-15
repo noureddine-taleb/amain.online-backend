@@ -188,23 +188,23 @@ html
             br
             table
                 tr
-                    th #{bill.quantity}
+                    th #{bill.quantity} #{bill.projectID.unit}
                     th كمية
                 tr
-                    th #{bill.projectID.fees} dh
+                    th #{bill.projectID.fees} DH
                     th السعر لكل وحدة
                 tr
-                    th #{bill.projectID.fees * bill.quantity} dh
+                    th #{bill.projectID.fees * bill.quantity} DH
                     th استهلاك
                 tr
-                    th #{bill.cfees} dh
+                    th #{bill.cfees} DH
                     th الرسوم
                 tr
-                    th #{bill.penalty} dh
+                    th #{bill.penalty} DH
                     th عقوبة التأخير
                 tr
                     th 
-                        b #{bill.total} dh
+                        b #{bill.total} DH
                     th مجموع
 
         footer(style="width: 85%;") Benefeciary Bank : CIH BANK *** N° compte : 000 000 0000000000000000 00

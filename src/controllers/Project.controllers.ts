@@ -5,11 +5,12 @@ import { MProject } from "../models/Project.model";
 export class CProject implements Controller {
 
     static async create(req: Request, res: Response) {
-        const { name, desc, fees, createdByID, createdAt } = req.body
+        const { name, desc, fees, unit, createdByID, createdAt } = req.body
         const project = new MProject()
         project.name = name
         project.desc = desc
         project.fees = fees
+        project.unit = unit
         project.createdByID = createdByID
         project.createdAt = createdAt
         await project.save()

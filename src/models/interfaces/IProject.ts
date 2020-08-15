@@ -5,6 +5,7 @@ export interface IProject extends Document {
     name: string
     desc: string
     fees: number
+    unit: string
     createdByID: IUserDocument['_id']
     createdAt: Date
 }
