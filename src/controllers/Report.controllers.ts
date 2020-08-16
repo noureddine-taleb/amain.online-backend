@@ -3,47 +3,53 @@ import { Request, Response } from "express";
 import { MPayment } from "../models/Payment.model";
 import { MTreasury } from "../models/Treasury";
 import { MProject } from "../models/Project.model";
+import { IPayment } from "../models/interfaces/IPayment";
 
 export class CReport implements Controller {
 
     static async getAll(req: Request, res: Response) {
+        // final result [{*name, *earn, *lost, *balance, *quantity, *unit, stuck*}] sorted
 
         // get each project and total earns
-        const reports = await MPayment
+        // out {...project, earn, lost=0}
+        const reports = await MProject
         .aggregate()
-        .lookup({ from: 'bills', localField: 'billID', foreignField: '_id', as: 'billID'})
-        .group({ _id: '$billID.projectID', earn: { $sum: '$amount' } })
+        .lookup({ from: 'bills', localField: '_id', foreignField: 'projectID', as: 'bills'})
         
-        // serialize data that is because any payment has exacly one bill
-        for(const r of reports)
-            r._id = r._id?.[0]
+        for(const r of reports){
+            r.earn = 0;
+            r.lost = 0;
+            r.quantity = 0;
+            r.stuck = 0;
+            for(const b of r.bills){
+                const payment = await MPayment.findOne({ billID: b._id })
+                payment ? (r.earn += payment.amount) : (r.stuck += (b.quantity * r.fees))
+                r.quantity += b.quantity
+            }
 
-        // populate project id field
-        await MProject.populate(reports, { path: '_id' })
+            delete r.bills
+            delete r.desc
+            delete r.fees
+            delete r.createdAt
+            delete r.createdByID
+        }
 
         // add other data from treasury
         for(const r of reports){
-            r.earn |= 0 // fallback to 0 if key is not set
-            r.lost |= 0 // fallback to 0 if key is not set
-
             // calc earn
             r.earn += (await MTreasury.aggregate()
-            .match({ amount : { $gte: 0 } , projectID: r._id._id })
+            .match({ amount : { $gte: 0 } , projectID: r._id })
             .group({ _id: null, earn: { $sum: '$amount' } }))[0]?.earn || 0
 
             // calc lost
             r.lost += (await MTreasury.aggregate()
-            .match({ amount : { $lt: 0 } , projectID: r._id._id })
+            .match({ amount : { $lt: 0 } , projectID: r._id })
             .group({ _id: null, lost: { $sum: '$amount' } }))[0]?.lost || 0
-
-            // we need only name to save bandwidth
-            r.project = r._id.name
-            delete r._id
         }
 
         // 'other' transactions
         reports.push({
-            project: '<other>',
+            name: '<other>',
             
             // calc earn
             earn : (await MTreasury.aggregate()
@@ -53,7 +59,11 @@ export class CReport implements Controller {
             // calc lost
             lost : (await MTreasury.aggregate()
             .match({ amount : { $lt: 0 } , name: '<other>' })
-            .group({ _id: null, lost: { $sum: '$amount' } }))[0]?.lost || 0
+            .group({ _id: null, lost: { $sum: '$amount' } }))[0]?.lost || 0,
+
+            quantity: '',
+            stuck: '',
+            unit: '',
         })
 
         // calc balance
@@ -63,7 +73,9 @@ export class CReport implements Controller {
             total += r.balance
         }
 
-        return res.json({ reports, total })
+        const sortedReports = (reports as Array<any>).sort( (a, b) => b.balance - a.balance )
+        
+        return res.json({ reports: sortedReports, total })
     }
 
 }

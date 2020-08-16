@@ -9,7 +9,7 @@ export class CTreasury implements Controller {
         const treasury = new MTreasury()
         treasury.amount = amount
         treasury.name = name
-        treasury.projectID = projectID
+        projectID && (treasury.projectID = projectID)
         treasury.desc = desc
         treasury.createdByID = createdByID
         treasury.createdAt = createdAt
