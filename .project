@@ -1,2 +1,5 @@
 sec: check ownership of required data
 sec: user wont be allowed to access system if is not verified by admin
+- Graphql
+- tensorflow
+- wasm

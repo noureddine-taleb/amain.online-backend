@@ -11,10 +11,8 @@ import { CReport } from '../controllers/Report.controllers'
 
 const router = Router()
 router.get('/', function (req, res) {
-
-    res.render('bill')
-
-});
+    res.json({ data: "api server"})
+})
 // -------------------------------------------project CRUD-------------------------------------------
 router.get("/projects",  userAuth, CProject.getAll)
 router.post("/projects",  adminAuth, CProject.create)
