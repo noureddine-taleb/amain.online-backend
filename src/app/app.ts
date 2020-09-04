@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, '../../views'));
 app.set("view engine","jade")
 app.use('/', express.static(path.join(__dirname, '../../public')))
 app.use('/api', api)
-app.use(/*userAuth,*/ graphql.getMiddleware()) 
+app.use(userAuth, graphql.getMiddleware({ cors: false })) 
 
 
 app.use(function (err: any, req: Request, res: Response, next: RequestHandler) {

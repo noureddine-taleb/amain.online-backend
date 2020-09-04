@@ -14,24 +14,24 @@ router.get('/', function (req, res) {
     res.json({ data: "api server"})
 })
 // -------------------------------------------project CRUD-------------------------------------------
-router.get("/projects",  userAuth, CProject.getAll)
+// router.get("/projects",  userAuth, CProject.getAll)
 router.post("/projects",  adminAuth, CProject.create)
 
 // -------------------------------------------user CRUD-------------------------------------------
 router.post("/users/session", CUser.login)
 router.get("/users/self",  userAuth, CUser.self)
 router.post("/users", CUser.create)
-router.get("/users",  adminAuth, CUser.getAll)
+// router.get("/users",  adminAuth, CUser.getAll)
 router.get("/users/:userID/bills",  adminAuth, CUser.bills)
 router.get("/users/bills",  userAuth, CUser.bills)
 router.post("/users/image", CUser.upload, renameUploadedFile)
 
 // -------------------------------------------payment CRUD-------------------------------------------
-router.get("/payments",  adminAuth, CPayment.getAll)
+// router.get("/payments",  adminAuth, CPayment.getAll)
 router.post("/payments",  adminAuth, CPayment.create)
 
 // -------------------------------------------bill CRUD-------------------------------------------
-router.get("/bills",  adminAuth, CBill.getAll)
+// router.get("/bills",  adminAuth, CBill.getAll)
 router.get("/bills/:_id", CBill.getOne)
 router.post("/bills",  adminAuth, CBill.create)
 

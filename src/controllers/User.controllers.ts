@@ -50,6 +50,7 @@ export class CUser implements Controller {
         .find({ userID })
         .populate('userID')
         .populate('projectID')
+        .sort('-createdAt')
         .lean()
         for(const bill of bills){
             (<any>bill).paymentID = await MPayment.findOne({ billID: bill._id })

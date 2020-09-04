@@ -21,22 +21,22 @@ export const typeDefs = gql`
         createdAt: String
     }
 
-    type Payment {
-        _id: ID
-        billID: String
-        amount: String
-        createdByID: String
-        createdAt: String
-    }
+    # type Payment {
+    #     _id: ID
+    #     billID: Bill
+    #     amount: String
+    #     createdByID: User
+    #     createdAt: String
+    # }
 
-    type Bill {
-        _id: ID
-        userID: String
-        quantity: String
-        projectID: String
-        createdByID: String
-        createdAt: String
-    }
+    # type Bill {
+    #     _id: ID
+    #     userID: User
+    #     quantity: String
+    #     projectID: Project
+    #     createdByID: User
+    #     createdAt: String
+    # }
 
     type Query {
         projects(
@@ -47,7 +47,6 @@ export const typeDefs = gql`
             unit: String
             createdByID: String
             createdAt: String
-            _populate: [String]
         ): [Project]
 
         users(
@@ -60,21 +59,21 @@ export const typeDefs = gql`
             createdAt: String
         ): [User]
 
-        payments(
-            _id: ID
-            billID: String
-            amount: String
-            createdByID: String
-            createdAt: String
-        ): [Payment]
+        # payments(
+        #     _id: ID
+        #     billID: String
+        #     amount: String
+        #     createdByID: String
+        #     createdAt: String
+        # ): [Payment]
 
-        bills(
-            _id: ID
-            userID: String
-            quantity: String
-            projectID: String
-            createdByID: String
-            createdAt: String
-        ): [Bill]
+        # bills(
+        #     _id: ID
+        #     userID: String
+        #     quantity: String
+        #     projectID: String
+        #     createdByID: String
+        #     createdAt: String
+        # ): [Bill]
     }
 `

@@ -5,18 +5,9 @@ import { MBill } from "../models/Bill.model"
 
 export const resolvers = {
     Query: {
-        projects: async (_: any, args: any) => {
-            const res = MProject.find({...args, _populate: undefined})
-            if(args._populate?.length){
-                for(const p of args._populate){
-                    await res.populate(p)
-                    console.log({p})
-                }
-            }
-            return res;
-        },
-        users: (_: any, args: any) => MUser.find(args),
-        payments: (_: any, args: any) => MPayment.find(args),
-        bills: (_: any, args: any) => MBill.find(args),
+        projects: async (_: any, args: any) => MProject.find(args).populate('createdByID').sort('-createdAt'),
+        users: (_: any, args: any) => MUser.find(args).sort('-createdAt'),
+        // payments: (_: any, args: any) => MPayment.find(args).populate('billID').populate('createdByID'),
+        // bills: (_: any, args: any) => MBill.find(args).populate('userID').populate('createdByID').populate('projectID'),
     }
 }
